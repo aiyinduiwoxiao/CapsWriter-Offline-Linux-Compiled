@@ -85,13 +85,37 @@ bash start_client.sh    # 终端 2 — 启动客户端（麦克风模式）
 
 ---
 
+## 文件转录前提取音轨
+
+CapsWriter 服务端直接支持 mp3/wav/aac/flac/ogg 等音频格式。对于视频文件，建议先用 ffmpeg 提取音频再转录：
+
+```bash
+# 基本用法：提取所有音轨为 MP3（录播视频原编码常为 AAC，转 MP3 体积更小）
+ffmpeg -i input.mp4 -q:a 2 output.mp3
+
+# 保留原 AAC 编码（无损、快速、不重编码，仅解封装）
+ffmpeg -i input.mp4 -c:a copy output.aac
+
+# 推荐 ASR 格式：WAV 16kHz 单声道（ffmpeg 自动重编码）
+ffmpeg -i input.mp4 -ar 16000 -ac 1 output.wav
+```
+
+**多音轨视频**（如录制视频同时有麦克风音轨和系统音轨），先用 `ffprobe` 查看，再用 `-map` 指定所需音轨：
+
+```bash
+ffprobe input.mp4                    # 查看所有音轨
+ffmpeg -i input.mp4 -map 0:a:1 -ar 16000 -ac 1 output.wav   # 提取第2条音轨
+```
+
+提取后对独立音频文件运行转录即可。
+
 ## 文件转录
 
 将音视频文件转为 SRT 字幕和 TXT 文本，支持批量处理。
 
 ```bash
 # 转录单个文件
-bash start_client.sh demo.mp3
+bash start_client.sh output.wav
 
 # 批量转录
 bash start_client.sh file1.mp3 file2.wav file3.flac
@@ -107,26 +131,6 @@ bash start_client.sh file1.mp3 file2.wav file3.flac
 | `<文件名>.merge.txt` | 未切分的整段文本 | ❌ |
 
 支持格式: mp3, wav, aac, flac, ogg, mp4, mkv, flv, avi, mov 等（需 ffmpeg 解码非 WAV 格式）。
-
-> **视频提取音频**: 建议先提取音频再转录，避免视频流干扰。
-> ```bash
-# 基本用法：提取所有音轨为 MP3（录播视频原编码常为 AAC，转 MP3 体积更小）
-ffmpeg -i input.mp4 -q:a 2 output.mp3
-
-# 保留原 AAC 编码（无损、快速、不重编码，仅解封装）
-ffmpeg -i input.mp4 -c:a copy output.aac
-
-# 推荐 ASR 格式：WAV 16kHz 单声道（ffmpeg 自动重编码）
-ffmpeg -i input.mp4 -ar 16000 -ac 1 output.wav
-# ```
->
-> **多音轨视频**: 如录制视频同时有麦克风音轨和系统音轨，先用 `ffprobe` 查看音轨列表，再用 `-map` 指定所需音轨：
-> ```bash
-ffprobe input.mp4                    # 查看所有音轨
-ffmpeg -i input.mp4 -map 0:a:1 -ar 16000 -ac 1 output.wav   # 提取第2条音轨
-# ```
->
-> 提取后对独立音频文件运行 `bash start_client.sh output.wav` 转录即可。
 
 ### 手动修正字幕
 
