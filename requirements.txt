@@ -1,0 +1,51 @@
+# ============================================================
+# CapsWriter Offline — Linux 离线部署依赖
+# 安装方式: uv pip install -r requirements.txt
+# 离线安装: pip install --no-index --find-links=deps/ -r requirements.txt
+# ============================================================
+
+# --- 构建工具（离线环境必须，用于构建 srt/evdev 等源码包）---
+setuptools>=69
+wheel>=0.42
+
+# --- 核心运行时 ---
+numpy>=1.24,<3
+websockets>=12.0
+rich>=13.0
+pyyaml>=6.0
+
+# --- 服务端: ASR 引擎 ---
+onnxruntime>=1.16
+sherpa-onnx>=1.10
+sentencepiece>=0.2
+soundfile>=0.12
+srt>=3.5
+pypinyin>=0.50
+rapidfuzz>=3.0
+
+# --- 客户端: 音频捕获 (Linux 需要 sounddevice) ---
+sounddevice>=0.4
+pynput>=1.7
+keyboard>=0.13
+
+# --- 客户端: 剪贴板 ---
+pyclip>=0.7
+
+# --- 客户端: 热词文件监控 ---
+watchdog>=4.0
+
+# --- 客户端: 终端美化 ---
+colorama>=0.4
+
+# --- 客户端: Markdown 渲染 (弹窗显示) ---
+markdown-it-py>=3.0
+markdown>=3.5
+
+# --- 客户端: LLM 集成 (可选) ---
+ollama>=0.4
+openai>=1.0
+requests>=2.31
+
+# --- 客户端: tkinter UI 增强 (可选) ---
+Pillow>=10.0
+tkhtmlview>=0.3
