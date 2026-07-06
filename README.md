@@ -99,19 +99,22 @@ bash start_client.sh file1.mp3 file2.wav file3.flac
 
 支持格式: mp3, wav, mp4, mkv, flv, avi, mov 等（需 ffmpeg）。
 
-> **提示**: 如果视频有多音轨（如录制视频有麦克风音轨和系统音轨），建议先用 ffmpeg 提取所需音轨再转录，避免频道串扰导致准确率下降：
+> **视频提取音频**: 建议先提取音频再转录，避免视频流干扰。
 > ```bash
-# 查看视频音轨信息
-ffprobe input.mp4
+# 基本用法：提取所有音轨为 MP3
+ffmpeg -i input.mp4 -q:a 2 output.mp3
 
-# 提取指定音轨为独立音频文件（-map 0:a:1 表示第2条音轨）
-ffmpeg -i input.mp4 -map 0:a:1 -acodec libmp3lame -q:a 2 output.mp3
-
-# 或提取为 WAV 16kHz mono（ASR 推荐格式）
-ffmpeg -i input.mp4 -map 0:a:1 -ar 16000 -ac 1 output.wav
+# 推荐 ASR 格式：WAV 16kHz 单声道
+ffmpeg -i input.mp4 -ar 16000 -ac 1 output.wav
 # ```
 >
-> 提取后对独立音频文件运行转录即可。
+> **多音轨视频**: 如录制视频同时有麦克风音轨和系统音轨，先用 `ffprobe` 查看音轨列表，再用 `-map` 指定所需音轨：
+> ```bash
+ffprobe input.mp4                    # 查看所有音轨
+ffmpeg -i input.mp4 -map 0:a:1 -ar 16000 -ac 1 output.wav   # 提取第2条音轨
+# ```
+>
+> 提取后对独立音频文件运行 `bash start_client.sh output.wav` 转录即可。
 
 ### 手动修正字幕
 
