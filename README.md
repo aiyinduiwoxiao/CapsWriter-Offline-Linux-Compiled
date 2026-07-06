@@ -97,14 +97,17 @@ bash start_client.sh file1.mp3 file2.wav file3.flac
 | `<文件名>.json` | 字级时间戳 | ✅ |
 | `<文件名>.merge.txt` | 未切分的整段文本 | ❌ |
 
-支持格式: mp3, wav, mp4, mkv, flv, avi, mov 等（需 ffmpeg）。
+支持格式: mp3, wav, aac, flac, ogg, mp4, mkv, flv, avi, mov 等（需 ffmpeg 解码非 WAV 格式）。
 
 > **视频提取音频**: 建议先提取音频再转录，避免视频流干扰。
 > ```bash
-# 基本用法：提取所有音轨为 MP3
+# 基本用法：提取所有音轨为 MP3（录播视频原编码常为 AAC，转 MP3 体积更小）
 ffmpeg -i input.mp4 -q:a 2 output.mp3
 
-# 推荐 ASR 格式：WAV 16kHz 单声道
+# 保留原 AAC 编码（无损、快速、不重编码，仅解封装）
+ffmpeg -i input.mp4 -c:a copy output.aac
+
+# 推荐 ASR 格式：WAV 16kHz 单声道（ffmpeg 自动重编码）
 ffmpeg -i input.mp4 -ar 16000 -ac 1 output.wav
 # ```
 >
