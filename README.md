@@ -1,5 +1,7 @@
 # CapsWriter Offline v2.6 — Linux 编译版
 
+> 此项目使用 [opencode](https://opencode.ai) 的免费模型协助修改和上传。
+
 本项目基于以下两个来源，在 **Linux 适配版基础上修改**：
 
 - **Linux 适配版**: [new985211/CapsWriter-Offline](https://github.com/new985211/CapsWriter-Offline) 发布的 v2.6-Linux release（本仓库的直接上游）
@@ -384,10 +386,10 @@ MIT License — Copyright (c) 2026 Haujet Zhao
 
 **原项目作者 Haujet Zhao**（感谢原作者的辛勤开发）：
 
-![原项目赞助码](assets/zxq.jpg)
+![原项目赞助码](assets/sponsor.jpg)
 
-**Linux 编译版维护者**（感谢支持持续更新）：
+**Linux 适配版作者 new985211**（感谢 Linux 移植工作）：
 
-> （此处放置你的赞赏码图片，放入 `assets/` 目录后引用）
+![Linux 适配版赞助码](assets/zxq.jpg)
 
 ---
