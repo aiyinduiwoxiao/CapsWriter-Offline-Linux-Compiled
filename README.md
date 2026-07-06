@@ -9,10 +9,10 @@ cd CapsWriter-Offline-Linux-Compiled
 
 > 本仓库已在 CachyOS (Arch Linux) 上测试通过。其他 Arch 系发行版可直接使用，Debian/Ubuntu 需自行调整系统依赖安装方式。
 
-本项目基于以下两个来源修改：
+本项目基于以下两个来源，在 **Linux 适配版基础上修改**：
 
+- **Linux 适配版**: [new985211/CapsWriter-Offline](https://github.com/new985211/CapsWriter-Offline) 发布的 v2.6-Linux release（本仓库的直接上游）
 - **原项目**: [HaujetZhao/CapsWriter-Offline](https://github.com/HaujetZhao/CapsWriter-Offline) v2.6 — 作者 [Haujet Zhao](https://github.com/HaujetZhao)
-- **Linux 适配版**: [new985211/CapsWriter-Offline](https://github.com/new985211/CapsWriter-Offline) 发布的 v2.6-Linux release
 
 ### 本仓库额外修改
 - 修复 llama.cpp b9881 下 `llama_context_params` 结构体缺失字段导致 `llama_init_from_model` 段错误
@@ -372,9 +372,9 @@ sudo loginctl enable-linger $USER
 
 MIT License — Copyright (c) 2026 Haujet Zhao
 
-本项目基于以下来源修改:
+本项目修改自:
+- [new985211/CapsWriter-Offline](https://github.com/new985211/CapsWriter-Offline) v2.6-Linux release (Linux 适配 fork) — 直接上游
 - [HaujetZhao/CapsWriter-Offline](https://github.com/HaujetZhao/CapsWriter-Offline) (原项目, MIT)
-- [new985211/CapsWriter-Offline](https://github.com/new985211/CapsWriter-Offline) v2.6-Linux release (Linux 适配 fork)
 
 如果觉得好用，欢迎点个 Star 或者打赏支持：
 
