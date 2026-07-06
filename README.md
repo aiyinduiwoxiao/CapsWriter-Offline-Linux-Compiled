@@ -1,5 +1,15 @@
 # CapsWriter Offline v2.6 — Linux 离线语音转文字
 
+本项目基于以下两个来源修改：
+
+- **原项目**: [HaujetZhao/CapsWriter-Offline](https://github.com/HaujetZhao/CapsWriter-Offline) v2.6 — 作者 [Haujet Zhao](https://github.com/HaujetZhao)
+- **Linux 适配版**: [new985211/CapsWriter-Offline](https://github.com/new985211/CapsWriter-Offline) 发布的 v2.6-Linux release
+
+### 本仓库额外修改
+- 修复 llama.cpp b9881 下 `llama_context_params` 结构体缺失字段导致 `llama_init_from_model` 段错误
+- 修复 `inference/__init__.py` 中 `try` 导入损坏导致 CWD 被意外修改的问题
+- 替换预编译 llama.cpp b9881 Linux x86_64 库
+
 CapsWriter Offline 是一个**客户端-服务端架构**的离线语音识别工具。支持**麦克风实时录入**和**音视频文件转录**，无需网络。
 
 ```
@@ -319,7 +329,11 @@ sudo loginctl enable-linger $USER
 
 ## 许可证
 
-本项目基于 HaujetZhao/CapsWriter-Offline 进行 Linux 平台适配。原始项目: https://github.com/HaujetZhao/CapsWriter-Offline
+MIT License — Copyright (c) 2026 Haujet Zhao
+
+本项目基于以下来源修改:
+- [HaujetZhao/CapsWriter-Offline](https://github.com/HaujetZhao/CapsWriter-Offline) (原项目, MIT)
+- [new985211/CapsWriter-Offline](https://github.com/new985211/CapsWriter-Offline) v2.6-Linux release (Linux 适配 fork)
 
 如果觉得好用，欢迎点个 Star 或者打赏支持：
 
