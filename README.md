@@ -1,5 +1,14 @@
 # CapsWriter Offline v2.6 — Linux 编译版
 
+## 下载仓库
+
+```bash
+git clone https://github.com/aiyinduiwoxiao/CapsWriter-Offline-Linux-Compiled.git
+cd CapsWriter-Offline-Linux-Compiled
+```
+
+> 本仓库已在 CachyOS (Arch Linux) 上测试通过。其他 Arch 系发行版可直接使用，Debian/Ubuntu 需自行调整系统依赖安装方式。
+
 本项目基于以下两个来源修改：
 
 - **原项目**: [HaujetZhao/CapsWriter-Offline](https://github.com/HaujetZhao/CapsWriter-Offline) v2.6 — 作者 [Haujet Zhao](https://github.com/HaujetZhao)
@@ -159,12 +168,12 @@ class ServerConfig:
 
 | 模型 | 本地状态 |
 |------|------|
-| SenseVoice Small | ✅ 已就绪 (452MB) |
-| SenseVoice Small ONNX | ✅ 已就绪 |
-| Qwen3-ASR 1.7B | ⚠️ 需下载 |
-| Fun-ASR-Nano | ⚠️ 需下载 |
-| ForceAligner | ⚠️ 需下载（Qwen3-ASR 生成精确时间戳时需要） |
-| Paraformer | ✅ 已就绪 |
+| SenseVoice Small | ❌ 未就绪（需下载） |
+| SenseVoice Small ONNX | ❌ 未就绪（需下载） |
+| Qwen3-ASR 1.7B | ❌ 未就绪（需下载） |
+| Fun-ASR-Nano | ❌ 未就绪（需下载） |
+| ForceAligner | ❌ 未就绪（需下载，Qwen3-ASR 生成精确时间戳时需要） |
+| Paraformer | ❌ 未就绪（需下载） |
 
 ---
 
