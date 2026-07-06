@@ -1,4 +1,4 @@
-# CapsWriter Offline v2.6 — Linux 离线语音转文字
+# CapsWriter Offline v2.6 — Linux 编译版
 
 本项目基于以下两个来源修改：
 
@@ -8,7 +8,8 @@
 ### 本仓库额外修改
 - 修复 llama.cpp b9881 下 `llama_context_params` 结构体缺失字段导致 `llama_init_from_model` 段错误
 - 修复 `inference/__init__.py` 中 `try` 导入损坏导致 CWD 被意外修改的问题
-- 替换预编译 llama.cpp b9881 Linux x86_64 库
+- 集成预编译 llama.cpp b9881 Linux x86_64 库（免去自行编译）
+- 预置 SenseVoice-Small（GGUF）、SenseVoice-Small-ONNX、Paraformer 模型
 
 CapsWriter Offline 是一个**客户端-服务端架构**的离线语音识别工具。支持**麦克风实时录入**和**音视频文件转录**，无需网络。
 
@@ -98,6 +99,20 @@ bash start_client.sh file1.mp3 file2.wav file3.flac
 
 支持格式: mp3, wav, mp4, mkv, flv, avi, mov 等（需 ffmpeg）。
 
+> **提示**: 如果视频有多音轨（如录制视频有麦克风音轨和系统音轨），建议先用 ffmpeg 提取所需音轨再转录，避免频道串扰导致准确率下降：
+> ```bash
+# 查看视频音轨信息
+ffprobe input.mp4
+
+# 提取指定音轨为独立音频文件（-map 0:a:1 表示第2条音轨）
+ffmpeg -i input.mp4 -map 0:a:1 -acodec libmp3lame -q:a 2 output.mp3
+
+# 或提取为 WAV 16kHz mono（ASR 推荐格式）
+ffmpeg -i input.mp4 -map 0:a:1 -ar 16000 -ac 1 output.wav
+# ```
+>
+> 提取后对独立音频文件运行转录即可。
+
 ### 手动修正字幕
 
 1. 编辑生成的 `.txt` 文件（改错字、调分行）
@@ -124,7 +139,7 @@ class ServerConfig:
 | SenseVoice Small | `sensevoice` | ★★★☆☆ | 基线 | ~2GB | ✅ | 452MB |
 | Paraformer | `paraformer` | ★★★☆☆ | ~1× | ~1.5GB | ❌ | ~1.0GB |
 
-> **推荐**: 默认 `sensevoice` 可用即用，追求准确率用 `qwen_asr`，平衡用 `fun_asr_nano`。
+> **推荐**: AMD 5600 以上配置可优先尝试 `qwen_asr`（Qwen3-ASR 1.7B），准确率最高。配置较低时用默认 `sensevoice` 即可。
 
 ### 下载模型
 
@@ -348,4 +363,12 @@ MIT License — Copyright (c) 2026 Haujet Zhao
 
 如果觉得好用，欢迎点个 Star 或者打赏支持：
 
-![sponsor](assets/zxq.jpg)
+**原项目作者 Haujet Zhao**（感谢原作者的辛勤开发）：
+
+![原项目赞助码](assets/zxq.jpg)
+
+**Linux 编译版维护者**（感谢支持持续更新）：
+
+> （此处放置你的赞赏码图片，放入 `assets/` 目录后引用）
+
+---
