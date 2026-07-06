@@ -166,7 +166,12 @@ enable_tray = False          # Linux 关闭托盘图标
 ```
 
 > **Linux 下快捷键**: 支持 F7（按住说话）/ F8（单击切换）。鼠标侧键在 ARM64 平台可能不可用，默认禁用。
-> **Wayland 用户**: pynput 需要 X11 环境。请切换到 Xorg 会话登录，或在 `config_client.py` 中禁用键盘快捷键监听。
+>
+> **Wayland 用户**: `pynput` 依赖 X11 协议，在 Wayland 下无法正常监听全局按键，会导致快捷键无响应或误触发（如不停向服务端发送录音请求）。
+>
+> 解决方法：
+> 1. **推荐**: 切换到 Xorg 会话登录（登录界面选 "CachyOS on Xorg" / "Ubuntu on Xorg"），快捷键即可正常工作。
+> 2. **不切 Xorg**: 在 `config_client.py` 中将所有快捷键 `'enabled': False` 禁用 pynput，改用 Wayland 合成器绑键（如 Hyprland 的 `bind = , F7, exec, ...`）触发录音脚本。
 
 ---
 
